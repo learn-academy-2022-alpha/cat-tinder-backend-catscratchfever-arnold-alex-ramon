@@ -94,18 +94,18 @@ RSpec.describe "Cats", type: :request do
       expect(response).to have_http_status(422)
       expect(cat['age']).to include "can't be blank"
     end
-    it 'cannot create a cat without an age' do
+    it 'cannot create a cat without an image' do
       cat_params = {
         cat: {
           name: 'Alisha',
           enjoys: 'Being a cat',
-          image: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/why-cats-are-best-pets-1559241235.jpg?crop=0.586xw:0.880xh;0.0684xw,0.0611xh&resize=640:*'
+          age: 24
           }
       }
       post '/cats', params: cat_params
       cat = JSON.parse(response.body)
       expect(response).to have_http_status(422)
-      expect(cat['age']).to include "can't be blank"
+      expect(cat['image']).to include "can't be blank"
     end
     it 'cannot create a cat without an enjoys' do
       cat_params = {
@@ -119,6 +119,19 @@ RSpec.describe "Cats", type: :request do
       cat = JSON.parse(response.body)
       expect(response).to have_http_status(422)
       expect(cat['enjoys']).to include "can't be blank"
+    end
+    it 'cannot create a cat without a name' do
+      cat_params = {
+        cat: {
+          age: 24,
+          enjoys: 'Being a cat',
+          image: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/why-cats-are-best-pets-1559241235.jpg?crop=0.586xw:0.880xh;0.0684xw,0.0611xh&resize=640:*'
+          }
+      }
+      post '/cats', params: cat_params
+      cat = JSON.parse(response.body)
+      expect(response).to have_http_status(422)
+      expect(cat['name']).to include "can't be blank"
     end
   end
 end
