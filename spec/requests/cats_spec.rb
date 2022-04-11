@@ -80,5 +80,4 @@ RSpec.describe "Cats", type: :request do
       expect(cats).to be_empty
     end
   end
-
 end

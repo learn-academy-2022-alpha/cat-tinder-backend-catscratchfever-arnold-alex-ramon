@@ -28,6 +28,4 @@ class CatsController < ApplicationController
   def strong_cat_params
     params.require(:cat).permit(:name, :age, :enjoys, :image)
   end
-
-
 end
